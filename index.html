@@ -177,6 +177,11 @@
   .dot.att{ background:var(--alert); }
   .dot.inf{ background:var(--info); }
 
+  .sort-note{
+    font-size:10.5px; letter-spacing:.04em; color:var(--ink-faint);
+    text-transform:uppercase; margin-bottom:2px;
+  }
+
   /* ---------- DESTINATION CARDS ---------- */
   .board{ margin-top:14px; display:flex; flex-direction:column; gap:26px; }
 
@@ -330,6 +335,7 @@
     <span><span class="dot att"></span>Atención (Semana Santa / alta demanda)</span>
     <span><span class="dot inf"></span>A confirmar (ruta nueva)</span>
   </div>
+  <div class="sort-note mono">Ordenado por distancia real (km en línea recta) desde Buenos Aires — de más cerca a más lejos</div>
 
   <div class="filters" role="group" aria-label="Filtrar por categoría">
     <button class="filter-btn active" data-filter="all">Todos · 13</button>
@@ -341,346 +347,14 @@
 
   <div class="board" id="board">
 
-    <article class="dest" data-cat="caribe" style="animation-delay:.02s">
-      <div class="dest-photo"><img src="img/cartagena.jpg" alt="Centro histórico de Cartagena, Colombia" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+    <article class="dest" data-cat="domestico" style="animation-delay:.02s">
+      <div class="dest-photo"><img src="img/ibera.jpg" alt="Vista aérea de los Esteros del Iberá, Corrientes" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
       <div class="dest-body">
         <div class="dest-head">
           <span class="f-num mono">01</span>
           <div class="titles">
-            <h2 class="f-dest">Cartagena, Colombia</h2>
-            <span class="f-cat">Caribe</span>
-          </div>
-          <span class="f-status att">Atención</span>
-        </div>
-        <div class="stat-row">
-          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">14h20</span></div>
-          <div class="stat"><span class="lbl">USD/persona</span><span class="val">700–950</span></div>
-          <div class="stat"><span class="lbl">Auto</span><span class="val">No</span></div>
-          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8/9</span></div>
-        </div>
-        <div class="dest-section">
-          <h3>Traslados y distancias</h3>
-          <ul>
-            <li><b>Aeropuerto Rafael Núñez → Centro Histórico:</b> 15-20 min (~5 km)</li>
-            <li><b>Islas del Rosario:</b> excursión en lancha, ~1h-1h15 por tramo</li>
-            <li><b>Playa Bocagrande:</b> caminable desde el centro, 15-20 min a pie</li>
-          </ul>
-        </div>
-        <p class="f-note"><b>Directo AEP-CTG desde el 1/1/2027</b> (Aerolíneas Argentinas, 7h10 por tramo, sin escalas) — es el vuelo más rápido de todo el Caribe en esta lista.</p>
-        <div class="f-cols">
-          <div class="f-col pros">
-            <h4>A favor</h4>
-            <ul>
-              <li>Centro colonial UNESCO, islas del Rosario</li>
-              <li>Gastronomía caribeña de nivel</li>
-              <li>Vuelo nuevo, directo, sin riesgo de conexión</li>
-            </ul>
-          </div>
-          <div class="f-col cons">
-            <h4>En contra</h4>
-            <ul>
-              <li>Calor húmedo fuerte todo el día</li>
-              <li>Zonas fuera del centro piden cuidado</li>
-              <li>Semana Santa: procesiones y precios altos</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="dest" data-cat="caribe" style="animation-delay:.05s">
-      <div class="dest-photo"><img src="img/curazao.jpg" alt="Fachadas coloridas de Handelskade, Willemstad, Curazao" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
-      <div class="dest-body">
-        <div class="dest-head">
-          <span class="f-num mono">02</span>
-          <div class="titles">
-            <h2 class="f-dest">Curazao</h2>
-            <span class="f-cat">Caribe</span>
-          </div>
-          <span class="f-status inf">A confirmar</span>
-        </div>
-        <div class="stat-row">
-          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~15-16h</span></div>
-          <div class="stat"><span class="lbl">USD/persona</span><span class="val">700–1000+</span></div>
-          <div class="stat"><span class="lbl">Auto</span><span class="val">Sí</span></div>
-          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8/9</span></div>
-        </div>
-        <div class="dest-section">
-          <h3>Traslados y distancias</h3>
-          <ul>
-            <li><b>Aeropuerto Hato → Willemstad:</b> ~15 min (~7 km)</li>
-            <li><b>Parque Shete Boka (norte):</b> ~45 min en auto</li>
-            <li><b>Playa Kenepa Grandi:</b> ~40 min en auto</li>
-            <li><b>Christoffel Park:</b> ~40-50 min en auto</li>
-          </ul>
-        </div>
-        <p class="f-note"><b>Ruta directa nueva de Aerolíneas Argentinas, arranca 2/1/2027</b>, solo 2 frecuencias semanales (mié/sáb) — hay que chequear que calcen con el 20-28/3 antes de avanzar.</p>
-        <div class="f-cols">
-          <div class="f-col pros">
-            <h4>A favor</h4>
-            <ul>
-              <li>Fuera del cinturón de huracanes</li>
-              <li>Buceo y snorkel de primer nivel</li>
-              <li>Willemstad, mezcla caribeño-holandesa</li>
-            </ul>
-          </div>
-          <div class="f-col cons">
-            <h4>En contra</h4>
-            <ul>
-              <li>Ruta sin historial de tarifas ni operación</li>
-              <li>Poca frecuencia, riesgo de que no calce la fecha</li>
-              <li>Transporte público limitado</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="dest" data-cat="caribe" style="animation-delay:.08s">
-      <div class="dest-photo"><img src="img/puntacana.jpg" alt="Marina de Cap Cana, Punta Cana, República Dominicana" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
-      <div class="dest-body">
-        <div class="dest-head">
-          <span class="f-num mono">03</span>
-          <div class="titles">
-            <h2 class="f-dest">Punta Cana, Rep. Dominicana</h2>
-            <span class="f-cat">Caribe</span>
-          </div>
-          <span class="f-status att">Atención</span>
-        </div>
-        <div class="stat-row">
-          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~19h</span></div>
-          <div class="stat"><span class="lbl">USD/persona</span><span class="val">500–900</span></div>
-          <div class="stat"><span class="lbl">Auto</span><span class="val">Opcional</span></div>
-          <div class="stat"><span class="lbl">Días netos</span><span class="val">~7,5/9</span></div>
-        </div>
-        <div class="dest-section">
-          <h3>Traslados y distancias</h3>
-          <ul>
-            <li><b>Aeropuerto PUJ → zona hotelera Bávaro:</b> 15-25 min</li>
-            <li><b>Isla Saona:</b> excursión bus + lancha, ~1h30-2h por tramo</li>
-            <li><b>Santo Domingo (opcional):</b> ~3h en auto, come casi un día completo</li>
-          </ul>
-        </div>
-        <p class="f-note">Directo o con 1 escala según aerolínea (~9h40 por tramo).</p>
-        <div class="f-cols">
-          <div class="f-col pros">
-            <h4>A favor</h4>
-            <ul>
-              <li>Playas caribeñas de las mejores de la región</li>
-              <li>Resorts todo incluido</li>
-              <li>Buena relación calidad-precio fuera de temporada pico</li>
-            </ul>
-          </div>
-          <div class="f-col cons">
-            <h4>En contra</h4>
-            <ul>
-              <li>Enclave turístico, poco contacto con el país real</li>
-              <li>Calor húmedo constante</li>
-              <li>Spring break de EE.UU. + Semana Santa = máxima demanda del año</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="dest" data-cat="ciudad" style="animation-delay:.11s">
-      <div class="dest-photo"><img src="img/cdmx.jpg" alt="Vista aérea de Ciudad de México" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
-      <div class="dest-body">
-        <div class="dest-head">
-          <span class="f-num mono">04</span>
-          <div class="titles">
-            <h2 class="f-dest">Ciudad de México</h2>
-            <span class="f-cat">Ciudad</span>
-          </div>
-          <span class="f-status att">Atención</span>
-        </div>
-        <div class="stat-row">
-          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~19h</span></div>
-          <div class="stat"><span class="lbl">USD/persona</span><span class="val">550–900</span></div>
-          <div class="stat"><span class="lbl">Auto</span><span class="val">No</span></div>
-          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8/9</span></div>
-        </div>
-        <div class="dest-section">
-          <h3>Traslados y distancias</h3>
-          <ul>
-            <li><b>Aeropuerto AICM → Centro/Roma-Condesa:</b> 30-45 min según tráfico</li>
-            <li><b>Teotihuacán:</b> ~1h-1h15 en auto o bus</li>
-            <li><b>Puebla (día completo):</b> ~2h por tramo</li>
-            <li><b>Xochimilco:</b> ~45 min desde el centro</li>
-          </ul>
-        </div>
-        <p class="f-note">Directo (Aeroméxico / Aerolíneas Argentinas, ~9h25-9h35 por tramo). Sin auto: mejor Metro/Uber y tours organizados.</p>
-        <div class="f-cols">
-          <div class="f-col pros">
-            <h4>A favor</h4>
-            <ul>
-              <li>Gastronomía de nivel mundial</li>
-              <li>Museos e historia en cada esquina</li>
-              <li>A un salto de Teotihuacán y Puebla</li>
-            </ul>
-          </div>
-          <div class="f-col cons">
-            <h4>En contra</h4>
-            <ul>
-              <li>Altitud (2.240m) puede pegar los primeros días</li>
-              <li>Contaminación y tráfico</li>
-              <li>Vía Crucis de Iztapalapa el 26/3 satura esa zona</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="dest" data-cat="naturaleza" style="animation-delay:.14s">
-      <div class="dest-photo"><img src="img/costarica.jpg" alt="Volcán Arenal, Costa Rica" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
-      <div class="dest-body">
-        <div class="dest-head">
-          <span class="f-num mono">05</span>
-          <div class="titles">
-            <h2 class="f-dest">Costa Rica (San José)</h2>
-            <span class="f-cat">Naturaleza</span>
-          </div>
-          <span class="f-status att">Atención</span>
-        </div>
-        <div class="stat-row">
-          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">20-22h</span></div>
-          <div class="stat"><span class="lbl">USD/persona</span><span class="val">550–750</span></div>
-          <div class="stat"><span class="lbl">Auto</span><span class="val">Sí</span></div>
-          <div class="stat"><span class="lbl">Días netos</span><span class="val">~7/9</span></div>
-        </div>
-        <div class="dest-section">
-          <h3>Traslados y distancias</h3>
-          <ul>
-            <li><b>Aeropuerto SJO → San José:</b> ~30 min</li>
-            <li><b>San José → La Fortuna/Arenal:</b> ~3h-3h30 en auto</li>
-            <li><b>La Fortuna → Monteverde:</b> ~2h30-3h (caminos de montaña, más lento de lo que parece en el mapa)</li>
-            <li><b>Monteverde → Guanacaste:</b> ~2h-2h30</li>
-          </ul>
-        </div>
-        <p class="f-note">Con 1 escala, generalmente vía Panamá — evitar rutas con 2 escalas, llegan a 22h40.</p>
-        <div class="f-cols">
-          <div class="f-col pros">
-            <h4>A favor</h4>
-            <ul>
-              <li>Biodiversidad excepcional: volcanes, selva, dos océanos</li>
-              <li>Buena infraestructura turística y seguridad</li>
-              <li>Excelente para road trip con auto propio</li>
-            </ul>
-          </div>
-          <div class="f-col cons">
-            <h4>En contra</h4>
-            <ul>
-              <li>La conexión obligatoria suma horas</li>
-              <li>Distancias internas grandes para solo 9 días</li>
-              <li>Playas (Guanacaste, Jacó) saturadas de turismo local en Semana Santa</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="dest" data-cat="naturaleza" style="animation-delay:.17s">
-      <div class="dest-photo"><img src="img/peru.jpg" alt="Machu Picchu, Perú" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
-      <div class="dest-body">
-        <div class="dest-head">
-          <span class="f-num mono">06</span>
-          <div class="titles">
-            <h2 class="f-dest">Perú — Lima + Cusco / Machu Picchu</h2>
-            <span class="f-cat">Naturaleza</span>
-          </div>
-          <span class="f-status rec">Recomendado</span>
-        </div>
-        <div class="stat-row">
-          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">12-13h</span></div>
-          <div class="stat"><span class="lbl">USD/persona</span><span class="val">550–750</span></div>
-          <div class="stat"><span class="lbl">Auto</span><span class="val">No</span></div>
-          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8,5/9</span></div>
-        </div>
-        <div class="dest-section">
-          <h3>Traslados y distancias</h3>
-          <ul>
-            <li><b>Aeropuerto Lima → Miraflores:</b> ~40-50 min</li>
-            <li><b>Vuelo Lima → Cusco:</b> 1h27</li>
-            <li><b>Cusco → Valle Sagrado (Ollantaytambo):</b> ~1h30-2h en auto/van</li>
-            <li><b>Ollantaytambo → Machu Picchu:</b> solo en tren, ~1h30-2h</li>
-          </ul>
-        </div>
-        <p class="f-note">Directo BUE-Lima (~4h30-5h por tramo) + salto corto Lima-Cusco. El mejor ratio tiempo de vuelo/experiencia de toda la lista.</p>
-        <div class="f-cols">
-          <div class="f-col pros">
-            <h4>A favor</h4>
-            <ul>
-              <li>Machu Picchu y Valle Sagrado, Cusco colonial</li>
-              <li>Vuelo directo y relativamente corto desde BUE</li>
-              <li>Menos turistas y hoteles más baratos que en invierno seco</li>
-            </ul>
-          </div>
-          <div class="f-col cons">
-            <h4>En contra</h4>
-            <ul>
-              <li>Cola de temporada de lluvias, riesgo de cierres de vía</li>
-              <li>Altitud de Cusco (3.400m) exige aclimatación</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="dest" data-cat="domestico" style="animation-delay:.20s">
-      <div class="dest-photo"><img src="img/salta.jpg" alt="Panorámica de la ciudad de Salta" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
-      <div class="dest-body">
-        <div class="dest-head">
-          <span class="f-num mono">07</span>
-          <div class="titles">
-            <h2 class="f-dest">Salta / Jujuy</h2>
-            <span class="f-cat">Doméstico</span>
-          </div>
-          <span class="f-status rec">Recomendado</span>
-        </div>
-        <div class="stat-row">
-          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~4h</span></div>
-          <div class="stat"><span class="lbl">USD/persona</span><span class="val">150–300</span></div>
-          <div class="stat"><span class="lbl">Auto</span><span class="val">Sí</span></div>
-          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8,5/9</span></div>
-        </div>
-        <div class="dest-section">
-          <h3>Traslados y distancias</h3>
-          <ul>
-            <li><b>Aeropuerto Salta → centro:</b> ~15 min</li>
-            <li><b>Salta → Cafayate</b> (Quebrada de las Conchas): ~3h-3h30</li>
-            <li><b>Salta → Purmamarca:</b> ~2h30-3h</li>
-            <li><b>Purmamarca → Salinas Grandes:</b> ~1h · <b>→ Humahuaca:</b> ~1h15</li>
-          </ul>
-        </div>
-        <p class="f-note">Directo, sin fricción de idioma ni fronteras.</p>
-        <div class="f-cols">
-          <div class="f-col pros">
-            <h4>A favor</h4>
-            <ul>
-              <li>Paisajes espectaculares, muy fotogénicos</li>
-              <li>Gastronomía regional</li>
-              <li>Logística simple, sin pasaporte ni cambio de moneda</li>
-            </ul>
-          </div>
-          <div class="f-col cons">
-            <h4>En contra</h4>
-            <ul>
-              <li>Distancias largas por ruta</li>
-              <li>Posible neblina o lluvia residual</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <article class="dest" data-cat="domestico" style="animation-delay:.23s">
-      <div class="dest-photo"><img src="img/ibera.jpg" alt="Vista aérea de los Esteros del Iberá, Corrientes" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
-      <div class="dest-body">
-        <div class="dest-head">
-          <span class="f-num mono">08</span>
-          <div class="titles">
             <h2 class="f-dest">Esteros del Iberá, Corrientes</h2>
-            <span class="f-cat">Doméstico</span>
+            <span class="f-cat">Doméstico · 835 km</span>
           </div>
           <span class="f-status rec">Recomendado</span>
         </div>
@@ -718,14 +392,14 @@
       </div>
     </article>
 
-    <article class="dest" data-cat="domestico" style="animation-delay:.26s">
+    <article class="dest" data-cat="domestico" style="animation-delay:.05s">
       <div class="dest-photo"><img src="img/mendoza.jpg" alt="Centro de la ciudad de Mendoza" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
       <div class="dest-body">
         <div class="dest-head">
-          <span class="f-num mono">09</span>
+          <span class="f-num mono">02</span>
           <div class="titles">
             <h2 class="f-dest">Mendoza</h2>
-            <span class="f-cat">Doméstico</span>
+            <span class="f-cat">Doméstico · 982 km</span>
           </div>
           <span class="f-status att">Atención</span>
         </div>
@@ -765,62 +439,61 @@
       </div>
     </article>
 
-    <article class="dest" data-cat="ciudad" style="animation-delay:.29s">
-      <div class="dest-photo"><img src="img/salvador.jpg" alt="Centro Histórico de Salvador de Bahía, Brasil" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+    <article class="dest" data-cat="domestico" style="animation-delay:.08s">
+      <div class="dest-photo"><img src="img/salta.jpg" alt="Panorámica de la ciudad de Salta" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
       <div class="dest-body">
         <div class="dest-head">
-          <span class="f-num mono">10</span>
+          <span class="f-num mono">03</span>
           <div class="titles">
-            <h2 class="f-dest">Salvador de Bahía, Brasil</h2>
-            <span class="f-cat">Ciudad</span>
+            <h2 class="f-dest">Salta / Jujuy</h2>
+            <span class="f-cat">Doméstico · 1.283 km</span>
           </div>
           <span class="f-status rec">Recomendado</span>
         </div>
         <div class="stat-row">
-          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~10-14h</span></div>
-          <div class="stat"><span class="lbl">USD/persona</span><span class="val">280–550</span></div>
-          <div class="stat"><span class="lbl">Auto</span><span class="val">Opcional</span></div>
-          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8/9</span></div>
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~4h</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">150–300</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">Sí</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8,5/9</span></div>
         </div>
         <div class="dest-section">
           <h3>Traslados y distancias</h3>
           <ul>
-            <li><b>Aeropuerto Dep. Luís Eduardo Magalhães → Pelourinho/Centro:</b> ~35-45 min</li>
-            <li><b>Pelourinho</b> (centro histórico colonial, UNESCO): todo caminable</li>
-            <li><b>Praia do Forte</b> (playa clásica de excursión): ~1h15-1h30 en auto/van</li>
-            <li><b>Morro de São Paulo</b> (isla, opcional): ~1h30-2h30 combinando lancha + auto</li>
+            <li><b>Aeropuerto Salta → centro:</b> ~15 min</li>
+            <li><b>Salta → Cafayate</b> (Quebrada de las Conchas): ~3h-3h30</li>
+            <li><b>Salta → Purmamarca:</b> ~2h30-3h</li>
+            <li><b>Purmamarca → Salinas Grandes:</b> ~1h · <b>→ Humahuaca:</b> ~1h15</li>
           </ul>
         </div>
-        <p class="f-note">Hay vuelo directo (Sky, desde ~U$D 280) o con 1 escala vía San Pablo/Río, según la fecha. Fin de marzo es después del Carnaval (fue en febrero): temporada más tranquila y barata, con el mar todavía cálido.</p>
+        <p class="f-note">Directo, sin fricción de idioma ni fronteras.</p>
         <div class="f-cols">
           <div class="f-col pros">
             <h4>A favor</h4>
             <ul>
-              <li>Pelourinho colonial UNESCO, el más colorido de Brasil</li>
-              <li>Cultura afrobrasileña única: música, capoeira, gastronomía baiana</li>
-              <li>Playas del litoral norte a un salto del centro</li>
+              <li>Paisajes espectaculares, muy fotogénicos</li>
+              <li>Gastronomía regional</li>
+              <li>Logística simple, sin pasaporte ni cambio de moneda</li>
             </ul>
           </div>
           <div class="f-col cons">
             <h4>En contra</h4>
             <ul>
-              <li>Zonas fuera del circuito turístico piden cuidado, como en Río</li>
-              <li>Calor húmedo tropical fuerte todo el año</li>
-              <li>Transporte público limitado fuera del centro</li>
+              <li>Distancias largas por ruta</li>
+              <li>Posible neblina o lluvia residual</li>
             </ul>
           </div>
         </div>
       </div>
     </article>
 
-    <article class="dest" data-cat="naturaleza" style="animation-delay:.32s">
+    <article class="dest" data-cat="naturaleza" style="animation-delay:.11s">
       <div class="dest-photo"><img src="img/atacama.jpg" alt="Oasis de San Pedro de Atacama, Chile" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
       <div class="dest-body">
         <div class="dest-head">
-          <span class="f-num mono">11</span>
+          <span class="f-num mono">04</span>
           <div class="titles">
             <h2 class="f-dest">San Pedro de Atacama, Chile</h2>
-            <span class="f-cat">Naturaleza</span>
+            <span class="f-cat">Naturaleza · 1.691 km</span>
           </div>
           <span class="f-status att">Atención</span>
         </div>
@@ -852,7 +525,7 @@
           <div class="f-col cons">
             <h4>En contra</h4>
             <ul>
-              <li>El trayecto de vuelo más largo de toda la lista</li>
+              <li>Uno de los trayectos de vuelo más largos de la lista</li>
               <li>Altitud alta (San Pedro 2.400m, El Tatio 4.300m)</li>
               <li>Madrugones para las excursiones clave, noches muy frías</li>
             </ul>
@@ -861,14 +534,14 @@
       </div>
     </article>
 
-    <article class="dest" data-cat="naturaleza" style="animation-delay:.35s">
+    <article class="dest" data-cat="naturaleza" style="animation-delay:.14s">
       <div class="dest-photo"><img src="img/uyuni.jpg" alt="Salar de Uyuni, Bolivia" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
       <div class="dest-body">
         <div class="dest-head">
-          <span class="f-num mono">12</span>
+          <span class="f-num mono">05</span>
           <div class="titles">
             <h2 class="f-dest">Salar de Uyuni, Bolivia</h2>
-            <span class="f-cat">Naturaleza</span>
+            <span class="f-cat">Naturaleza · 1.779 km</span>
           </div>
           <span class="f-status att">Atención</span>
         </div>
@@ -909,14 +582,14 @@
       </div>
     </article>
 
-    <article class="dest" data-cat="naturaleza" style="animation-delay:.38s">
+    <article class="dest" data-cat="naturaleza" style="animation-delay:.17s">
       <div class="dest-photo"><img src="img/pantanal.jpg" alt="Vista aérea del humedal del Pantanal, Brasil" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
       <div class="dest-body">
         <div class="dest-head">
-          <span class="f-num mono">13</span>
+          <span class="f-num mono">06</span>
           <div class="titles">
             <h2 class="f-dest">Pantanal, Brasil</h2>
-            <span class="f-cat">Naturaleza</span>
+            <span class="f-cat">Naturaleza · 2.119 km</span>
           </div>
           <span class="f-status att">Atención</span>
         </div>
@@ -949,7 +622,340 @@
             <ul>
               <li>Marzo no es la mejor época del año para concentración de fauna</li>
               <li>Logística cara y lenta: lodges remotos, tarifas altas</li>
-              <li>El trayecto de vuelo más largo después de Uyuni</li>
+              <li>Uno de los trayectos de vuelo más largos de la lista</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="dest" data-cat="naturaleza" style="animation-delay:.20s">
+      <div class="dest-photo"><img src="img/peru.jpg" alt="Machu Picchu, Perú" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">07</span>
+          <div class="titles">
+            <h2 class="f-dest">Perú — Lima + Cusco / Machu Picchu</h2>
+            <span class="f-cat">Naturaleza · 3.144 km</span>
+          </div>
+          <span class="f-status rec">Recomendado</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">12-13h</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">550–750</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">No</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8,5/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto Lima → Miraflores:</b> ~40-50 min</li>
+            <li><b>Vuelo Lima → Cusco:</b> 1h27</li>
+            <li><b>Cusco → Valle Sagrado (Ollantaytambo):</b> ~1h30-2h en auto/van</li>
+            <li><b>Ollantaytambo → Machu Picchu:</b> solo en tren, ~1h30-2h</li>
+          </ul>
+        </div>
+        <p class="f-note">Directo BUE-Lima (~4h30-5h por tramo) + salto corto Lima-Cusco. Pese a la distancia, tiene el mejor ratio tiempo de vuelo/experiencia de toda la lista.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Machu Picchu y Valle Sagrado, Cusco colonial</li>
+              <li>Vuelo directo y relativamente corto desde BUE</li>
+              <li>Menos turistas y hoteles más baratos que en invierno seco</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>Cola de temporada de lluvias, riesgo de cierres de vía</li>
+              <li>Altitud de Cusco (3.400m) exige aclimatación</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="dest" data-cat="ciudad" style="animation-delay:.23s">
+      <div class="dest-photo"><img src="img/salvador.jpg" alt="Centro Histórico de Salvador de Bahía, Brasil" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">08</span>
+          <div class="titles">
+            <h2 class="f-dest">Salvador de Bahía, Brasil</h2>
+            <span class="f-cat">Ciudad · 3.147 km</span>
+          </div>
+          <span class="f-status rec">Recomendado</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~10-14h</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">280–550</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">Opcional</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto Dep. Luís Eduardo Magalhães → Pelourinho/Centro:</b> ~35-45 min</li>
+            <li><b>Pelourinho</b> (centro histórico colonial, UNESCO): todo caminable</li>
+            <li><b>Praia do Forte</b> (playa clásica de excursión): ~1h15-1h30 en auto/van</li>
+            <li><b>Morro de São Paulo</b> (isla, opcional): ~1h30-2h30 combinando lancha + auto</li>
+          </ul>
+        </div>
+        <p class="f-note">Hay vuelo directo (Sky, desde ~U$D 280) o con 1 escala vía San Pablo/Río, según la fecha. Fin de marzo es después del Carnaval (fue en febrero): temporada más tranquila y barata, con el mar todavía cálido.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Pelourinho colonial UNESCO, el más colorido de Brasil</li>
+              <li>Cultura afrobrasileña única: música, capoeira, gastronomía baiana</li>
+              <li>Playas del litoral norte a un salto del centro</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>Zonas fuera del circuito turístico piden cuidado, como en Río</li>
+              <li>Calor húmedo tropical fuerte todo el año</li>
+              <li>Transporte público limitado fuera del centro</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="dest" data-cat="caribe" style="animation-delay:.26s">
+      <div class="dest-photo"><img src="img/curazao.jpg" alt="Fachadas coloridas de Handelskade, Willemstad, Curazao" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">09</span>
+          <div class="titles">
+            <h2 class="f-dest">Curazao</h2>
+            <span class="f-cat">Caribe · 5.322 km</span>
+          </div>
+          <span class="f-status inf">A confirmar</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~15-16h</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">700–1000+</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">Sí</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto Hato → Willemstad:</b> ~15 min (~7 km)</li>
+            <li><b>Parque Shete Boka (norte):</b> ~45 min en auto</li>
+            <li><b>Playa Kenepa Grandi:</b> ~40 min en auto</li>
+            <li><b>Christoffel Park:</b> ~40-50 min en auto</li>
+          </ul>
+        </div>
+        <p class="f-note"><b>Ruta directa nueva de Aerolíneas Argentinas, arranca 2/1/2027</b>, solo 2 frecuencias semanales (mié/sáb) — hay que chequear que calcen con el 20-28/3 antes de avanzar.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Fuera del cinturón de huracanes</li>
+              <li>Buceo y snorkel de primer nivel</li>
+              <li>Willemstad, mezcla caribeño-holandesa</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>Ruta sin historial de tarifas ni operación</li>
+              <li>Poca frecuencia, riesgo de que no calce la fecha</li>
+              <li>Transporte público limitado</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="dest" data-cat="caribe" style="animation-delay:.29s">
+      <div class="dest-photo"><img src="img/cartagena.jpg" alt="Centro histórico de Cartagena, Colombia" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">10</span>
+          <div class="titles">
+            <h2 class="f-dest">Cartagena, Colombia</h2>
+            <span class="f-cat">Caribe · 5.325 km</span>
+          </div>
+          <span class="f-status att">Atención</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">14h20</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">700–950</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">No</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto Rafael Núñez → Centro Histórico:</b> 15-20 min (~5 km)</li>
+            <li><b>Islas del Rosario:</b> excursión en lancha, ~1h-1h15 por tramo</li>
+            <li><b>Playa Bocagrande:</b> caminable desde el centro, 15-20 min a pie</li>
+          </ul>
+        </div>
+        <p class="f-note"><b>Directo AEP-CTG desde el 1/1/2027</b> (Aerolíneas Argentinas, 7h10 por tramo, sin escalas) — es el vuelo más rápido de todo el Caribe en esta lista, pese a estar prácticamente a la misma distancia que Curazao.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Centro colonial UNESCO, islas del Rosario</li>
+              <li>Gastronomía caribeña de nivel</li>
+              <li>Vuelo nuevo, directo, sin riesgo de conexión</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>Calor húmedo fuerte todo el día</li>
+              <li>Zonas fuera del centro piden cuidado</li>
+              <li>Semana Santa: procesiones y precios altos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="dest" data-cat="naturaleza" style="animation-delay:.32s">
+      <div class="dest-photo"><img src="img/costarica.jpg" alt="Volcán Arenal, Costa Rica" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">11</span>
+          <div class="titles">
+            <h2 class="f-dest">Costa Rica (San José)</h2>
+            <span class="f-cat">Naturaleza · 5.656 km</span>
+          </div>
+          <span class="f-status att">Atención</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">20-22h</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">550–750</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">Sí</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~7/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto SJO → San José:</b> ~30 min</li>
+            <li><b>San José → La Fortuna/Arenal:</b> ~3h-3h30 en auto</li>
+            <li><b>La Fortuna → Monteverde:</b> ~2h30-3h (caminos de montaña, más lento de lo que parece en el mapa)</li>
+            <li><b>Monteverde → Guanacaste:</b> ~2h-2h30</li>
+          </ul>
+        </div>
+        <p class="f-note">Con 1 escala, generalmente vía Panamá — evitar rutas con 2 escalas, llegan a 22h40.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Biodiversidad excepcional: volcanes, selva, dos océanos</li>
+              <li>Buena infraestructura turística y seguridad</li>
+              <li>Excelente para road trip con auto propio</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>La conexión obligatoria suma horas</li>
+              <li>Distancias internas grandes para solo 9 días</li>
+              <li>Playas (Guanacaste, Jacó) saturadas de turismo local en Semana Santa</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="dest" data-cat="caribe" style="animation-delay:.35s">
+      <div class="dest-photo"><img src="img/puntacana.jpg" alt="Marina de Cap Cana, Punta Cana, República Dominicana" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">12</span>
+          <div class="titles">
+            <h2 class="f-dest">Punta Cana, Rep. Dominicana</h2>
+            <span class="f-cat">Caribe · 6.006 km</span>
+          </div>
+          <span class="f-status att">Atención</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~19h</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">500–900</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">Opcional</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~7,5/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto PUJ → zona hotelera Bávaro:</b> 15-25 min</li>
+            <li><b>Isla Saona:</b> excursión bus + lancha, ~1h30-2h por tramo</li>
+            <li><b>Santo Domingo (opcional):</b> ~3h en auto, come casi un día completo</li>
+          </ul>
+        </div>
+        <p class="f-note">Directo o con 1 escala según aerolínea (~9h40 por tramo).</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Playas caribeñas de las mejores de la región</li>
+              <li>Resorts todo incluido</li>
+              <li>Buena relación calidad-precio fuera de temporada pico</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>Enclave turístico, poco contacto con el país real</li>
+              <li>Calor húmedo constante</li>
+              <li>Spring break de EE.UU. + Semana Santa = máxima demanda del año</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="dest" data-cat="ciudad" style="animation-delay:.38s">
+      <div class="dest-photo"><img src="img/cdmx.jpg" alt="Vista aérea de Ciudad de México" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">13</span>
+          <div class="titles">
+            <h2 class="f-dest">Ciudad de México</h2>
+            <span class="f-cat">Ciudad · 7.389 km</span>
+          </div>
+          <span class="f-status att">Atención</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~19h</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">550–900</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">No</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto AICM → Centro/Roma-Condesa:</b> 30-45 min según tráfico</li>
+            <li><b>Teotihuacán:</b> ~1h-1h15 en auto o bus</li>
+            <li><b>Puebla (día completo):</b> ~2h por tramo</li>
+            <li><b>Xochimilco:</b> ~45 min desde el centro</li>
+          </ul>
+        </div>
+        <p class="f-note">Directo (Aeroméxico / Aerolíneas Argentinas, ~9h25-9h35 por tramo). El destino más lejano de toda la lista. Sin auto: mejor Metro/Uber y tours organizados.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Gastronomía de nivel mundial</li>
+              <li>Museos e historia en cada esquina</li>
+              <li>A un salto de Teotihuacán y Puebla</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>Altitud (2.240m) puede pegar los primeros días</li>
+              <li>Contaminación y tráfico</li>
+              <li>Vía Crucis de Iztapalapa el 26/3 satura esa zona</li>
             </ul>
           </div>
         </div>
