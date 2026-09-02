@@ -332,10 +332,10 @@
   </div>
 
   <div class="filters" role="group" aria-label="Filtrar por categoría">
-    <button class="filter-btn active" data-filter="all">Todos · 12</button>
+    <button class="filter-btn active" data-filter="all">Todos · 13</button>
     <button class="filter-btn" data-filter="caribe">Caribe · 3</button>
     <button class="filter-btn" data-filter="ciudad">Ciudad · 2</button>
-    <button class="filter-btn" data-filter="naturaleza">Naturaleza · 4</button>
+    <button class="filter-btn" data-filter="naturaleza">Naturaleza · 5</button>
     <button class="filter-btn" data-filter="domestico">Doméstico · 3</button>
   </div>
 
@@ -909,6 +909,53 @@
       </div>
     </article>
 
+    <article class="dest" data-cat="naturaleza" style="animation-delay:.38s">
+      <div class="dest-photo"><img src="img/pantanal.jpg" alt="Vista aérea del humedal del Pantanal, Brasil" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">13</span>
+          <div class="titles">
+            <h2 class="f-dest">Pantanal, Brasil</h2>
+            <span class="f-cat">Naturaleza</span>
+          </div>
+          <span class="f-status att">Atención</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~14-16h</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">450–700</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">No*</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~7/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto Marechal Rondon (Cuiabá) → Poconé</b> (puerta de entrada, inicio de la Transpantaneira): ~1h-1h15</li>
+            <li><b>Transpantaneira adentro hasta el lodge/pousada:</b> ~3-4h por camino de tierra y puentes de madera</li>
+            <li><b>Safaris en lancha y 4x4:</b> salidas diarias desde el lodge, 2-4h cada una</li>
+          </ul>
+        </div>
+        <p class="f-note">Sin vuelo directo: BUE-San Pablo (~2h35-2h40) + San Pablo-Cuiabá (~2h15), con conexión. *No se maneja uno mismo por la Transpantaneira: el lodge organiza el traslado y los safaris. Marzo es fin de la temporada de lluvias, no la ideal para densidad de fauna (mejor en la seca, mayo-septiembre) — pero el paisaje inundado tiene su propio atractivo, con vegetación exuberante y aves migratorias. Superpone temáticamente con Esteros del Iberá, aunque a mayor escala y con más chances de ver yaguareté.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>El mejor lugar del mundo para ver yaguaretés salvajes</li>
+              <li>Densidad de fauna altísima: carpinchos, yacarés, tucanes, guacamayos jacinto</li>
+              <li>Safaris en lancha y 4x4 incluidos en los lodges</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>Marzo no es la mejor época del año para concentración de fauna</li>
+              <li>Logística cara y lenta: lodges remotos, tarifas altas</li>
+              <li>El trayecto de vuelo más largo después de Uyuni</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
   </div>
 
   <div class="foot mono">
@@ -949,7 +996,7 @@
   });
 
   var stampEl = document.getElementById('clock-stamp');
-  stampEl.textContent = 'Marzo 2027 · 12 destinos';
+  stampEl.textContent = 'Marzo 2027 · 13 destinos';
 
   var buttons = document.querySelectorAll('.filter-btn');
   var dests = document.querySelectorAll('.dest');
