@@ -332,10 +332,10 @@
   </div>
 
   <div class="filters" role="group" aria-label="Filtrar por categoría">
-    <button class="filter-btn active" data-filter="all">Todos · 11</button>
+    <button class="filter-btn active" data-filter="all">Todos · 12</button>
     <button class="filter-btn" data-filter="caribe">Caribe · 3</button>
     <button class="filter-btn" data-filter="ciudad">Ciudad · 2</button>
-    <button class="filter-btn" data-filter="naturaleza">Naturaleza · 3</button>
+    <button class="filter-btn" data-filter="naturaleza">Naturaleza · 4</button>
     <button class="filter-btn" data-filter="domestico">Doméstico · 3</button>
   </div>
 
@@ -861,6 +861,54 @@
       </div>
     </article>
 
+    <article class="dest" data-cat="naturaleza" style="animation-delay:.35s">
+      <div class="dest-photo"><img src="img/uyuni.jpg" alt="Salar de Uyuni, Bolivia" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">12</span>
+          <div class="titles">
+            <h2 class="f-dest">Salar de Uyuni, Bolivia</h2>
+            <span class="f-cat">Naturaleza</span>
+          </div>
+          <span class="f-status att">Atención</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">17-22h</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">300–600</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">No*</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~7/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto Uyuni (Joya Andina) → pueblo:</b> ~10-15 min</li>
+            <li><b>Entrada al salar (Colchani):</b> ~20-30 min desde el pueblo</li>
+            <li><b>Isla Incahuasi</b> (tour clásico de un día): ~1h30-2h cruzando el salar</li>
+            <li><b>Circuito de 3 días</b> a Laguna Colorada / Sud Lípez: cientos de km en 4x4, hasta 5.000m de altitud</li>
+          </ul>
+        </div>
+        <p class="f-note">Sin vuelo directo, con 2 escalas (~17h21 la opción más rápida combinando vuelo+bus, hasta 22h20 en algunas combinaciones). *No se maneja uno mismo: el salar y el circuito de lagunas se recorren en 4x4 con guía/agencia. Marzo cae en plena temporada de lluvias altiplánica, que es cuando el salar se cubre de una fina capa de agua y genera el famoso "efecto espejo" — el mejor momento del año para las fotos icónicas, aunque puede limitar el acceso a algunas zonas por inundación.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Paisaje único en el mundo, el "efecto espejo" en su mejor momento</li>
+              <li>Isla Incahuasi y sus cactus gigantes</li>
+              <li>Se puede extender a lagunas de colores y géiseres del sur boliviano</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>El trayecto más largo y con más escalas de toda la lista</li>
+              <li>Altitud extrema (hasta 5.000m en el circuito de 3 días), riesgo real de soroche</li>
+              <li>Temperaturas bajo cero de noche e infraestructura más básica que en Perú o Chile</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </article>
+
   </div>
 
   <div class="foot mono">
@@ -901,7 +949,7 @@
   });
 
   var stampEl = document.getElementById('clock-stamp');
-  stampEl.textContent = 'Marzo 2027 · 11 destinos';
+  stampEl.textContent = 'Marzo 2027 · 12 destinos';
 
   var buttons = document.querySelectorAll('.filter-btn');
   var dests = document.querySelectorAll('.dest');
