@@ -160,7 +160,7 @@
   }
   .filter-btn:hover{ border-color:var(--amber-dim); color:var(--ink); }
   .filter-btn.active{ background:var(--amber); border-color:var(--amber); color:#241a03; font-weight:700; }
-  .filter-btn:focus-visible, .flight summary:focus-visible, .legend a:focus-visible{
+  .filter-btn:focus-visible{
     outline:2px solid var(--amber); outline-offset:2px;
   }
 
@@ -177,51 +177,82 @@
   .dot.att{ background:var(--alert); }
   .dot.inf{ background:var(--info); }
 
-  /* ---------- BOARD ROWS ---------- */
-  .board{ margin-top:14px; border-top:1px solid var(--hairline); }
+  /* ---------- DESTINATION CARDS ---------- */
+  .board{ margin-top:14px; display:flex; flex-direction:column; gap:26px; }
 
-  .flight{ border-bottom:1px solid var(--hairline); opacity:0; transform:translateY(8px); animation:rise .5s ease forwards; }
-  .flight[hidden]{ display:none; }
+  .dest{
+    background:var(--panel);
+    border:1px solid var(--hairline);
+    opacity:0; transform:translateY(10px); animation:rise .5s ease forwards;
+  }
+  .dest[hidden]{ display:none; }
   @keyframes rise{ to{ opacity:1; transform:none; } }
 
-  .flight summary{
-    list-style:none;
-    cursor:pointer;
-    padding:16px 4px;
-    display:grid;
-    grid-template-columns:34px 1fr auto auto auto 18px;
-    gap:14px;
-    align-items:center;
+  .dest-photo{
+    position:relative;
+    width:100%;
+    aspect-ratio:16/8;
+    overflow:hidden;
+    background:var(--panel-2);
+    border-bottom:1px solid var(--hairline);
   }
-  .flight summary::-webkit-details-marker{ display:none; }
+  .dest-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .dest-photo-credit{
+    position:absolute; right:8px; bottom:7px;
+    font-family:'Space Mono',monospace; font-size:9px; letter-spacing:.05em;
+    color:#fff; background:rgba(0,0,0,.45); padding:3px 6px; text-transform:uppercase;
+  }
 
-  .f-num{
-    font-family:'Space Mono',monospace;
-    font-size:12px;
-    color:var(--ink-faint);
+  .dest-body{ padding:18px 20px 22px; }
+
+  .dest-head{
+    display:flex; align-items:flex-start; gap:12px; margin-bottom:16px;
   }
-  .f-name{ min-width:0; }
-  .f-dest{ font-weight:600; font-size:15.5px; }
+  .f-num{ font-family:'Space Mono',monospace; font-size:12px; color:var(--ink-faint); padding-top:3px; }
+  .dest-head .titles{ flex:1; min-width:0; }
+  .f-dest{ font-weight:600; font-size:17px; margin:0; }
   .f-cat{
     font-family:'Space Mono',monospace;
     font-size:10px; letter-spacing:.08em; text-transform:uppercase;
     color:var(--ink-faint);
-    margin-top:2px;
+    margin-top:3px; display:block;
   }
-  .f-data{ text-align:right; font-family:'Space Mono',monospace; font-size:12.5px; color:var(--ink-dim); white-space:nowrap; }
-  .f-data .lbl{ display:block; font-size:8.5px; color:var(--ink-faint); letter-spacing:.06em; }
   .f-status{
     font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.05em; text-transform:uppercase;
-    padding:4px 8px; border-radius:2px; white-space:nowrap; text-align:center;
+    padding:4px 8px; border-radius:2px; white-space:nowrap; text-align:center; flex-shrink:0;
   }
   .f-status.rec{ background:rgba(95,211,141,.14); color:var(--green); }
   .f-status.att{ background:rgba(255,138,92,.14); color:var(--alert); }
   .f-status.inf{ background:rgba(87,200,214,.14); color:var(--info); }
-  .chev{ color:var(--ink-faint); transition:transform .25s ease; font-size:13px; }
-  .flight[open] .chev{ transform:rotate(90deg); }
 
-  .f-body{ padding:0 4px 22px 48px; }
-  .f-cols{ display:grid; grid-template-columns:1fr 1fr; gap:20px 28px; margin-bottom:16px; }
+  .stat-row{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
+    background:var(--hairline); border:1px solid var(--hairline);
+    margin-bottom:20px;
+  }
+  .stat{ background:var(--panel-2); padding:9px 10px; }
+  .stat .lbl{
+    display:block; font-family:'Space Mono',monospace; font-size:8.5px; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--ink-faint); margin-bottom:3px;
+  }
+  .stat .val{ font-family:'Space Mono',monospace; font-size:13px; color:var(--ink); }
+
+  .dest-section{ margin-bottom:18px; }
+  .dest-section h3{
+    margin:0 0 9px; font-family:'Space Mono',monospace; font-size:10.5px;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--amber-dim);
+  }
+  .dest-section ul{ margin:0; padding-left:16px; font-size:13.5px; color:var(--ink-dim); }
+  .dest-section li{ margin-bottom:6px; }
+  .dest-section li b{ color:var(--ink); font-weight:600; }
+
+  .f-note{
+    font-size:13.5px; color:var(--ink-dim); border-left:2px solid var(--amber-dim);
+    padding:2px 0 2px 12px; margin-bottom:18px;
+  }
+  .f-note b{ color:var(--ink); font-weight:600; }
+
+  .f-cols{ display:grid; grid-template-columns:1fr 1fr; gap:20px 28px; }
   .f-col h4{
     margin:0 0 8px; font-family:'Space Mono',monospace; font-size:10.5px;
     letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);
@@ -230,12 +261,6 @@
   .f-col.cons h4{ color:var(--alert); }
   .f-col ul{ margin:0; padding-left:16px; font-size:13.5px; color:var(--ink-dim); }
   .f-col li{ margin-bottom:5px; }
-
-  .f-note{
-    font-size:13.5px; color:var(--ink-dim); border-left:2px solid var(--amber-dim);
-    padding:4px 0 4px 12px; margin-bottom:4px;
-  }
-  .f-note b{ color:var(--ink); font-weight:600; }
 
   /* ---------- FOOTER ---------- */
   .foot{
@@ -254,22 +279,14 @@
     .day .num{ font-size:13px; }
     .day .dow{ font-size:7.5px; }
     .day .tag{ font-size:6px; }
-    .flight summary{
-      grid-template-columns:1fr auto;
-      grid-template-areas: "num status" "name status" "data data";
-      row-gap:6px;
-    }
-    .f-num{ grid-area:num; }
-    .f-name{ grid-area:name; }
-    .f-status{ grid-area:status; align-self:start; }
-    .f-data{ grid-area:data; text-align:left; display:flex; gap:16px; }
-    .chev{ display:none; }
+    .dest-photo{ aspect-ratio:16/11; }
+    .stat-row{ grid-template-columns:repeat(2,1fr); }
     .f-cols{ grid-template-columns:1fr; }
-    .f-body{ padding-left:4px; }
+    .dest-body{ padding:16px 16px 18px; }
   }
 
   @media (prefers-reduced-motion:reduce){
-    .flight{ animation:none; opacity:1; transform:none; }
+    .dest{ animation:none; opacity:1; transform:none; }
     .flap-char{ animation:none !important; }
   }
 </style>
@@ -304,7 +321,7 @@
 
     <div class="board-alert">
       <span class="ico">⚠</span>
-      <span><b>Semana Santa 2027 cae del 21 al 28/3</b>, casi toda la ventana del viaje. Sube precios y ocupación en los destinos católicos (Colombia, México, Perú, Costa Rica, Rep. Dominicana) — conviene comprar con mucha anticipación. El detalle de cada caso está abajo, fila por fila.</span>
+      <span><b>Semana Santa 2027 cae del 21 al 28/3</b>, casi toda la ventana del viaje. Sube precios y ocupación en los destinos católicos (Colombia, México, Perú, Costa Rica, Rep. Dominicana) — conviene comprar con mucha anticipación. El detalle de cada caso está más abajo, en cada destino.</span>
     </div>
   </div>
 
@@ -324,20 +341,32 @@
 
   <div class="board" id="board">
 
-    <details class="flight" data-cat="caribe" style="animation-delay:.02s">
-      <summary>
-        <span class="f-num mono">01</span>
-        <span class="f-name">
-          <span class="f-dest">Cartagena, Colombia</span>
-          <span class="f-cat">Caribe</span>
-        </span>
-        <span class="f-data"><span class="lbl">Vuelo RT</span>14h20</span>
-        <span class="f-data"><span class="lbl">USD/persona</span>700–950</span>
-        <span class="f-status att">Atención</span>
-        <span class="chev">▸</span>
-      </summary>
-      <div class="f-body">
-        <p class="f-note"><b>Directo AEP-CTG desde el 1/1/2027</b> (Aerolíneas Argentinas, 7h10 por tramo, sin escalas) · auto: no hace falta, centro caminable, playas se hacen en excursión · ~8 de 9 días netos en destino.</p>
+    <article class="dest" data-cat="caribe" style="animation-delay:.02s">
+      <div class="dest-photo"><img src="img/cartagena.jpg" alt="Centro histórico de Cartagena, Colombia" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">01</span>
+          <div class="titles">
+            <h2 class="f-dest">Cartagena, Colombia</h2>
+            <span class="f-cat">Caribe</span>
+          </div>
+          <span class="f-status att">Atención</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">14h20</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">700–950</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">No</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto Rafael Núñez → Centro Histórico:</b> 15-20 min (~5 km)</li>
+            <li><b>Islas del Rosario:</b> excursión en lancha, ~1h-1h15 por tramo</li>
+            <li><b>Playa Bocagrande:</b> caminable desde el centro, 15-20 min a pie</li>
+          </ul>
+        </div>
+        <p class="f-note"><b>Directo AEP-CTG desde el 1/1/2027</b> (Aerolíneas Argentinas, 7h10 por tramo, sin escalas) — es el vuelo más rápido de todo el Caribe en esta lista.</p>
         <div class="f-cols">
           <div class="f-col pros">
             <h4>A favor</h4>
@@ -357,22 +386,35 @@
           </div>
         </div>
       </div>
-    </details>
+    </article>
 
-    <details class="flight" data-cat="caribe" style="animation-delay:.05s">
-      <summary>
-        <span class="f-num mono">02</span>
-        <span class="f-name">
-          <span class="f-dest">Curazao</span>
-          <span class="f-cat">Caribe</span>
-        </span>
-        <span class="f-data"><span class="lbl">Vuelo RT</span>~15–16h</span>
-        <span class="f-data"><span class="lbl">USD/persona</span>700–1000+</span>
-        <span class="f-status inf">A confirmar</span>
-        <span class="chev">▸</span>
-      </summary>
-      <div class="f-body">
-        <p class="f-note"><b>Ruta directa nueva de Aerolíneas Argentinas, arranca 2/1/2027</b>, solo 2 frecuencias semanales (mié/sáb) — hay que chequear que calcen con el 20-28/3 antes de avanzar · auto: sí, playas y el Parque Shete Boka lo requieren · ~8 días netos.</p>
+    <article class="dest" data-cat="caribe" style="animation-delay:.05s">
+      <div class="dest-photo"><img src="img/curazao.jpg" alt="Fachadas coloridas de Handelskade, Willemstad, Curazao" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">02</span>
+          <div class="titles">
+            <h2 class="f-dest">Curazao</h2>
+            <span class="f-cat">Caribe</span>
+          </div>
+          <span class="f-status inf">A confirmar</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~15-16h</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">700–1000+</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">Sí</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto Hato → Willemstad:</b> ~15 min (~7 km)</li>
+            <li><b>Parque Shete Boka (norte):</b> ~45 min en auto</li>
+            <li><b>Playa Kenepa Grandi:</b> ~40 min en auto</li>
+            <li><b>Christoffel Park:</b> ~40-50 min en auto</li>
+          </ul>
+        </div>
+        <p class="f-note"><b>Ruta directa nueva de Aerolíneas Argentinas, arranca 2/1/2027</b>, solo 2 frecuencias semanales (mié/sáb) — hay que chequear que calcen con el 20-28/3 antes de avanzar.</p>
         <div class="f-cols">
           <div class="f-col pros">
             <h4>A favor</h4>
@@ -392,22 +434,34 @@
           </div>
         </div>
       </div>
-    </details>
+    </article>
 
-    <details class="flight" data-cat="caribe" style="animation-delay:.08s">
-      <summary>
-        <span class="f-num mono">03</span>
-        <span class="f-name">
-          <span class="f-dest">Punta Cana, Rep. Dominicana</span>
-          <span class="f-cat">Caribe</span>
-        </span>
-        <span class="f-data"><span class="lbl">Vuelo RT</span>~19h</span>
-        <span class="f-data"><span class="lbl">USD/persona</span>500–900</span>
-        <span class="f-status att">Atención</span>
-        <span class="chev">▸</span>
-      </summary>
-      <div class="f-body">
-        <p class="f-note">Directo o con 1 escala según aerolínea (~9h40 por tramo) · auto: opcional, solo si salen del resort · ~7,5-8 días netos.</p>
+    <article class="dest" data-cat="caribe" style="animation-delay:.08s">
+      <div class="dest-photo"><img src="img/puntacana.jpg" alt="Marina de Cap Cana, Punta Cana, República Dominicana" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">03</span>
+          <div class="titles">
+            <h2 class="f-dest">Punta Cana, Rep. Dominicana</h2>
+            <span class="f-cat">Caribe</span>
+          </div>
+          <span class="f-status att">Atención</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~19h</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">500–900</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">Opcional</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~7,5/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto PUJ → zona hotelera Bávaro:</b> 15-25 min</li>
+            <li><b>Isla Saona:</b> excursión bus + lancha, ~1h30-2h por tramo</li>
+            <li><b>Santo Domingo (opcional):</b> ~3h en auto, come casi un día completo</li>
+          </ul>
+        </div>
+        <p class="f-note">Directo o con 1 escala según aerolínea (~9h40 por tramo).</p>
         <div class="f-cols">
           <div class="f-col pros">
             <h4>A favor</h4>
@@ -427,22 +481,35 @@
           </div>
         </div>
       </div>
-    </details>
+    </article>
 
-    <details class="flight" data-cat="ciudad" style="animation-delay:.11s">
-      <summary>
-        <span class="f-num mono">04</span>
-        <span class="f-name">
-          <span class="f-dest">Ciudad de México</span>
-          <span class="f-cat">Ciudad</span>
-        </span>
-        <span class="f-data"><span class="lbl">Vuelo RT</span>~19h</span>
-        <span class="f-data"><span class="lbl">USD/persona</span>550–900</span>
-        <span class="f-status att">Atención</span>
-        <span class="chev">▸</span>
-      </summary>
-      <div class="f-body">
-        <p class="f-note">Directo (Aeroméxico / Aerolíneas Argentinas, ~9h25-9h35 por tramo) · auto: no, tránsito pesado, mejor Metro/Uber y tours a Teotihuacán-Puebla · ~8 días netos.</p>
+    <article class="dest" data-cat="ciudad" style="animation-delay:.11s">
+      <div class="dest-photo"><img src="img/cdmx.jpg" alt="Vista aérea de Ciudad de México" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">04</span>
+          <div class="titles">
+            <h2 class="f-dest">Ciudad de México</h2>
+            <span class="f-cat">Ciudad</span>
+          </div>
+          <span class="f-status att">Atención</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~19h</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">550–900</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">No</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto AICM → Centro/Roma-Condesa:</b> 30-45 min según tráfico</li>
+            <li><b>Teotihuacán:</b> ~1h-1h15 en auto o bus</li>
+            <li><b>Puebla (día completo):</b> ~2h por tramo</li>
+            <li><b>Xochimilco:</b> ~45 min desde el centro</li>
+          </ul>
+        </div>
+        <p class="f-note">Directo (Aeroméxico / Aerolíneas Argentinas, ~9h25-9h35 por tramo). Sin auto: mejor Metro/Uber y tours organizados.</p>
         <div class="f-cols">
           <div class="f-col pros">
             <h4>A favor</h4>
@@ -462,22 +529,35 @@
           </div>
         </div>
       </div>
-    </details>
+    </article>
 
-    <details class="flight" data-cat="naturaleza" style="animation-delay:.14s">
-      <summary>
-        <span class="f-num mono">05</span>
-        <span class="f-name">
-          <span class="f-dest">Costa Rica (San José)</span>
-          <span class="f-cat">Naturaleza</span>
-        </span>
-        <span class="f-data"><span class="lbl">Vuelo RT</span>20–22h</span>
-        <span class="f-data"><span class="lbl">USD/persona</span>550–750</span>
-        <span class="f-status att">Atención</span>
-        <span class="chev">▸</span>
-      </summary>
-      <div class="f-body">
-        <p class="f-note">Con 1 escala, generalmente vía Panamá (evitar rutas con 2 escalas, llegan a 22h40) · auto: sí, muy recomendable, fuera del Valle Central el transporte público es limitado · ~7-7,5 días netos.</p>
+    <article class="dest" data-cat="naturaleza" style="animation-delay:.14s">
+      <div class="dest-photo"><img src="img/costarica.jpg" alt="Volcán Arenal, Costa Rica" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">05</span>
+          <div class="titles">
+            <h2 class="f-dest">Costa Rica (San José)</h2>
+            <span class="f-cat">Naturaleza</span>
+          </div>
+          <span class="f-status att">Atención</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">20-22h</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">550–750</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">Sí</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~7/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto SJO → San José:</b> ~30 min</li>
+            <li><b>San José → La Fortuna/Arenal:</b> ~3h-3h30 en auto</li>
+            <li><b>La Fortuna → Monteverde:</b> ~2h30-3h (caminos de montaña, más lento de lo que parece en el mapa)</li>
+            <li><b>Monteverde → Guanacaste:</b> ~2h-2h30</li>
+          </ul>
+        </div>
+        <p class="f-note">Con 1 escala, generalmente vía Panamá — evitar rutas con 2 escalas, llegan a 22h40.</p>
         <div class="f-cols">
           <div class="f-col pros">
             <h4>A favor</h4>
@@ -497,22 +577,35 @@
           </div>
         </div>
       </div>
-    </details>
+    </article>
 
-    <details class="flight" data-cat="naturaleza" style="animation-delay:.17s">
-      <summary>
-        <span class="f-num mono">06</span>
-        <span class="f-name">
-          <span class="f-dest">Perú — Lima + Cusco / Machu Picchu</span>
-          <span class="f-cat">Naturaleza</span>
-        </span>
-        <span class="f-data"><span class="lbl">Vuelo RT</span>12–13h</span>
-        <span class="f-data"><span class="lbl">USD/persona</span>550–750</span>
-        <span class="f-status rec">Recomendado</span>
-        <span class="chev">▸</span>
-      </summary>
-      <div class="f-body">
-        <p class="f-note">Directo BUE-Lima (~4h30-5h por tramo) + salto corto Lima-Cusco (~1h27) · auto: no, tren a Machu Picchu y tours en el Valle Sagrado · ~8,5 días netos, el mejor ratio tiempo de vuelo/experiencia de la lista.</p>
+    <article class="dest" data-cat="naturaleza" style="animation-delay:.17s">
+      <div class="dest-photo"><img src="img/peru.jpg" alt="Machu Picchu, Perú" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">06</span>
+          <div class="titles">
+            <h2 class="f-dest">Perú — Lima + Cusco / Machu Picchu</h2>
+            <span class="f-cat">Naturaleza</span>
+          </div>
+          <span class="f-status rec">Recomendado</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">12-13h</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">550–750</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">No</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8,5/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto Lima → Miraflores:</b> ~40-50 min</li>
+            <li><b>Vuelo Lima → Cusco:</b> 1h27</li>
+            <li><b>Cusco → Valle Sagrado (Ollantaytambo):</b> ~1h30-2h en auto/van</li>
+            <li><b>Ollantaytambo → Machu Picchu:</b> solo en tren, ~1h30-2h</li>
+          </ul>
+        </div>
+        <p class="f-note">Directo BUE-Lima (~4h30-5h por tramo) + salto corto Lima-Cusco. El mejor ratio tiempo de vuelo/experiencia de toda la lista.</p>
         <div class="f-cols">
           <div class="f-col pros">
             <h4>A favor</h4>
@@ -531,22 +624,35 @@
           </div>
         </div>
       </div>
-    </details>
+    </article>
 
-    <details class="flight" data-cat="domestico" style="animation-delay:.20s">
-      <summary>
-        <span class="f-num mono">07</span>
-        <span class="f-name">
-          <span class="f-dest">Salta / Jujuy</span>
-          <span class="f-cat">Doméstico</span>
-        </span>
-        <span class="f-data"><span class="lbl">Vuelo RT</span>~4h</span>
-        <span class="f-data"><span class="lbl">USD/persona</span>150–300</span>
-        <span class="f-status rec">Recomendado</span>
-        <span class="chev">▸</span>
-      </summary>
-      <div class="f-body">
-        <p class="f-note">Directo, sin fricción de idioma ni fronteras · auto: sí, muy recomendable, Quebrada de Humahuaca, Cafayate y Salinas Grandes lo piden · ~8,5 días netos.</p>
+    <article class="dest" data-cat="domestico" style="animation-delay:.20s">
+      <div class="dest-photo"><img src="img/salta.jpg" alt="Panorámica de la ciudad de Salta" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">07</span>
+          <div class="titles">
+            <h2 class="f-dest">Salta / Jujuy</h2>
+            <span class="f-cat">Doméstico</span>
+          </div>
+          <span class="f-status rec">Recomendado</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~4h</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">150–300</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">Sí</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8,5/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto Salta → centro:</b> ~15 min</li>
+            <li><b>Salta → Cafayate</b> (Quebrada de las Conchas): ~3h-3h30</li>
+            <li><b>Salta → Purmamarca:</b> ~2h30-3h</li>
+            <li><b>Purmamarca → Salinas Grandes:</b> ~1h · <b>→ Humahuaca:</b> ~1h15</li>
+          </ul>
+        </div>
+        <p class="f-note">Directo, sin fricción de idioma ni fronteras.</p>
         <div class="f-cols">
           <div class="f-col pros">
             <h4>A favor</h4>
@@ -559,28 +665,39 @@
           <div class="f-col cons">
             <h4>En contra</h4>
             <ul>
-              <li>Distancias largas por ruta (Cafayate ~3h30 de Salta)</li>
+              <li>Distancias largas por ruta</li>
               <li>Posible neblina o lluvia residual</li>
             </ul>
           </div>
         </div>
       </div>
-    </details>
+    </article>
 
-    <details class="flight" data-cat="domestico" style="animation-delay:.23s">
-      <summary>
-        <span class="f-num mono">08</span>
-        <span class="f-name">
-          <span class="f-dest">Esteros del Iberá, Corrientes</span>
-          <span class="f-cat">Doméstico</span>
-        </span>
-        <span class="f-data"><span class="lbl">Vuelo RT</span>~3h30</span>
-        <span class="f-data"><span class="lbl">USD/persona</span>150–280</span>
-        <span class="f-status rec">Recomendado</span>
-        <span class="chev">▸</span>
-      </summary>
-      <div class="f-body">
-        <p class="f-note">Directo a Posadas o Corrientes + traslado de 45min a 3h hasta Carlos Pellegrini · auto: esencial, y dentro de la reserva se suma lancha/4x4 con guía · ~8,5-9 días netos.</p>
+    <article class="dest" data-cat="domestico" style="animation-delay:.23s">
+      <div class="dest-photo"><img src="img/ibera.jpg" alt="Vista aérea de los Esteros del Iberá, Corrientes" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">08</span>
+          <div class="titles">
+            <h2 class="f-dest">Esteros del Iberá, Corrientes</h2>
+            <span class="f-cat">Doméstico</span>
+          </div>
+          <span class="f-status rec">Recomendado</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~3h30</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">150–280</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">Esencial</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8,5/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto Posadas o Corrientes → Carlos Pellegrini:</b> ~2h30-3h30 en auto (tramos de ripio)</li>
+            <li><b>Safaris dentro de la reserva:</b> lancha 2-3h + caminatas cortas</li>
+          </ul>
+        </div>
+        <p class="f-note">Directo a Posadas o Corrientes, sin escalas.</p>
         <div class="f-cols">
           <div class="f-col pros">
             <h4>A favor</h4>
@@ -599,22 +716,35 @@
           </div>
         </div>
       </div>
-    </details>
+    </article>
 
-    <details class="flight" data-cat="domestico" style="animation-delay:.26s">
-      <summary>
-        <span class="f-num mono">09</span>
-        <span class="f-name">
-          <span class="f-dest">Mendoza</span>
-          <span class="f-cat">Doméstico</span>
-        </span>
-        <span class="f-data"><span class="lbl">Vuelo RT</span>~3h30</span>
-        <span class="f-data"><span class="lbl">USD/persona</span>150–300</span>
-        <span class="f-status att">Atención</span>
-        <span class="chev">▸</span>
-      </summary>
-      <div class="f-body">
-        <p class="f-note">Directo · auto: recomendable, las bodegas de Luján de Cuyo y Valle de Uco no tienen buen transporte público · ~9 días netos, el destino con menos tiempo perdido en tránsito.</p>
+    <article class="dest" data-cat="domestico" style="animation-delay:.26s">
+      <div class="dest-photo"><img src="img/mendoza.jpg" alt="Centro de la ciudad de Mendoza" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">09</span>
+          <div class="titles">
+            <h2 class="f-dest">Mendoza</h2>
+            <span class="f-cat">Doméstico</span>
+          </div>
+          <span class="f-status att">Atención</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~3h30</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">150–300</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">Sí</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~9/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto → centro:</b> ~15-20 min</li>
+            <li><b>Luján de Cuyo (bodegas):</b> ~30-40 min</li>
+            <li><b>Valle de Uco:</b> ~1h-1h15</li>
+            <li><b>Potrerillos:</b> ~45 min</li>
+          </ul>
+        </div>
+        <p class="f-note">Directo. El destino con menos tiempo perdido en tránsito de toda la lista.</p>
         <div class="f-cols">
           <div class="f-col pros">
             <h4>A favor</h4>
@@ -633,22 +763,35 @@
           </div>
         </div>
       </div>
-    </details>
+    </article>
 
-    <details class="flight" data-cat="domestico" style="animation-delay:.29s">
-      <summary>
-        <span class="f-num mono">10</span>
-        <span class="f-name">
-          <span class="f-dest">Bariloche / Patagonia</span>
-          <span class="f-cat">Doméstico</span>
-        </span>
-        <span class="f-data"><span class="lbl">Vuelo RT</span>~4h30</span>
-        <span class="f-data"><span class="lbl">USD/persona</span>150–300</span>
-        <span class="f-status att">Atención</span>
-        <span class="chev">▸</span>
-      </summary>
-      <div class="f-body">
-        <p class="f-note">Directo · auto: muy recomendable, el Circuito Chico y la Ruta 40 se disfrutan mucho mejor manejando · ~8,5-9 días netos.</p>
+    <article class="dest" data-cat="domestico" style="animation-delay:.29s">
+      <div class="dest-photo"><img src="img/bariloche.jpg" alt="Catedral de Bariloche desde el lago Nahuel Huapi" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">10</span>
+          <div class="titles">
+            <h2 class="f-dest">Bariloche / Patagonia</h2>
+            <span class="f-cat">Doméstico</span>
+          </div>
+          <span class="f-status att">Atención</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~4h30</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">150–300</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">Sí</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~8,5/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Aeropuerto → centro:</b> ~15-20 min</li>
+            <li><b>Circuito Chico:</b> ~60 km, medio día</li>
+            <li><b>Villa La Angostura:</b> ~1h15-1h30</li>
+            <li><b>San Martín de los Andes</b> (fin de los 7 Lagos): ~2h30-3h</li>
+          </ul>
+        </div>
+        <p class="f-note">Directo.</p>
         <div class="f-cols">
           <div class="f-col pros">
             <h4>A favor</h4>
@@ -668,22 +811,34 @@
           </div>
         </div>
       </div>
-    </details>
+    </article>
 
-    <details class="flight" data-cat="domestico" style="animation-delay:.32s">
-      <summary>
-        <span class="f-num mono">11</span>
-        <span class="f-name">
-          <span class="f-dest">Uruguay — Punta del Este / Colonia</span>
-          <span class="f-cat">Doméstico</span>
-        </span>
-        <span class="f-data"><span class="lbl">Vuelo RT</span>~1-5h</span>
-        <span class="f-data"><span class="lbl">USD/persona</span>200–280*</span>
-        <span class="f-status att">Atención</span>
-        <span class="chev">▸</span>
-      </summary>
-      <div class="f-body">
-        <p class="f-note">Vuelo directo muy corto si hay frecuencia, o ferry + bus vía Montevideo (~5h15) · auto: opcional, útil en Colonia o para moverse por la costa · ~9 días netos. *estimado en base a ferry ida y vuelta.</p>
+    <article class="dest" data-cat="domestico" style="animation-delay:.32s">
+      <div class="dest-photo"><img src="img/uruguay.jpg" alt="Punta del Este, Uruguay" loading="lazy"><span class="dest-photo-credit">Wikimedia Commons</span></div>
+      <div class="dest-body">
+        <div class="dest-head">
+          <span class="f-num mono">11</span>
+          <div class="titles">
+            <h2 class="f-dest">Uruguay — Punta del Este / Colonia</h2>
+            <span class="f-cat">Doméstico</span>
+          </div>
+          <span class="f-status att">Atención</span>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><span class="lbl">Vuelo RT</span><span class="val">~1-5h</span></div>
+          <div class="stat"><span class="lbl">USD/persona</span><span class="val">200–280*</span></div>
+          <div class="stat"><span class="lbl">Auto</span><span class="val">Opcional</span></div>
+          <div class="stat"><span class="lbl">Días netos</span><span class="val">~9/9</span></div>
+        </div>
+        <div class="dest-section">
+          <h3>Traslados y distancias</h3>
+          <ul>
+            <li><b>Buquebus BUE → Montevideo directo:</b> ~2h15, o vía Colonia: ferry 1h + bus 2h30</li>
+            <li><b>Montevideo → Punta del Este:</b> ~2h en auto/bus</li>
+            <li><b>Colonia del Sacramento:</b> casco histórico caminable, todo a 30 min a pie</li>
+          </ul>
+        </div>
+        <p class="f-note">Vuelo directo muy corto si hay frecuencia disponible, o ferry + bus vía Montevideo. *costo estimado en base a ferry ida y vuelta.</p>
         <div class="f-cols">
           <div class="f-col pros">
             <h4>A favor</h4>
@@ -703,7 +858,7 @@
           </div>
         </div>
       </div>
-    </details>
+    </article>
 
   </div>
 
@@ -748,15 +903,15 @@
   stampEl.textContent = 'Marzo 2027 · 11 destinos';
 
   var buttons = document.querySelectorAll('.filter-btn');
-  var flights = document.querySelectorAll('.flight');
+  var dests = document.querySelectorAll('.dest');
   buttons.forEach(function(btn){
     btn.addEventListener('click', function(){
       buttons.forEach(function(b){ b.classList.remove('active'); });
       btn.classList.add('active');
       var f = btn.dataset.filter;
-      flights.forEach(function(fl){
-        var show = (f === 'all' || fl.dataset.cat === f);
-        fl.hidden = !show;
+      dests.forEach(function(d){
+        var show = (f === 'all' || d.dataset.cat === f);
+        d.hidden = !show;
       });
     });
   });
