@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marzo 2027 — Tablero de destinos</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✈️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#12161f;
+    --panel:#1a2030;
+    --panel-2:#212739;
+    --hairline:#2c3346;
+    --ink:#eef1f6;
+    --ink-dim:#93a0b8;
+    --ink-faint:#5c6680;
+    --amber:#ffb020;
+    --amber-dim:#a97a1e;
+    --green:#5fd38d;
+    --alert:#ff8a5c;
+    --info:#57c8d6;
+    --radius:2px;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{ background:var(--bg); }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',system-ui,sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .mono{ font-family:'Space Mono',ui-monospace,monospace; }
+
+  a{ color:var(--amber); }
+
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 20px;
+  }
+
+  /* ---------- HERO / BOARD HEADER ---------- */
+  .board-case{
+    background:var(--panel);
+    border:1px solid var(--hairline);
+    border-top:6px solid var(--amber);
+    margin-top:28px;
+    padding:28px 24px 22px;
+  }
+  .board-topline{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:.14em;
+    color:var(--ink-faint);
+    text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .hero-title{
+    font-family:'Space Mono',monospace;
+    font-weight:700;
+    font-size:clamp(2.4rem,9vw,4.4rem);
+    letter-spacing:.02em;
+    color:var(--amber);
+    margin:0;
+    line-height:1;
+    display:flex;
+    flex-wrap:wrap;
+  }
+  .flap-char{ display:inline-block; min-width:.62em; }
+  .flap-char.space{ min-width:.32em; }
+
+  .hero-sub{
+    font-family:'Space Mono',monospace;
+    font-size:clamp(.85rem,2.4vw,1.05rem);
+    color:var(--ink-dim);
+    margin:10px 0 22px;
+    letter-spacing:.03em;
+  }
+  .hero-sub b{ color:var(--ink); }
+
+  /* day strip */
+  .daystrip{
+    display:grid;
+    grid-template-columns:repeat(9,1fr);
+    gap:5px;
+    margin-bottom:18px;
+  }
+  .day{
+    background:var(--panel-2);
+    border:1px solid var(--hairline);
+    padding:8px 2px 7px;
+    text-align:center;
+    font-family:'Space Mono',monospace;
+  }
+  .day .dow{
+    display:block;
+    font-size:9px;
+    letter-spacing:.1em;
+    color:var(--ink-faint);
+    text-transform:uppercase;
+  }
+  .day .num{
+    display:block;
+    font-size:16px;
+    font-weight:700;
+    color:var(--ink-dim);
+    margin:2px 0 3px;
+  }
+  .day .tag{
+    display:block;
+    font-size:7.5px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    min-height:9px;
+  }
+  .day.on{ background:var(--amber); border-color:var(--amber); }
+  .day.on .dow, .day.on .tag{ color:#2b1e04; opacity:.75; }
+  .day.on .num{ color:#241a03; }
+
+  .board-alert{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    background:rgba(255,138,92,.1);
+    border:1px solid rgba(255,138,92,.35);
+    padding:12px 14px;
+    font-size:13.5px;
+    color:#ffcbb4;
+  }
+  .board-alert .ico{ color:var(--alert); font-family:'Space Mono',monospace; font-weight:700; }
+
+  /* ---------- FILTERS ---------- */
+  .filters{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin:26px 0 14px;
+  }
+  .filter-btn{
+    font-family:'Space Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:transparent;
+    border:1px solid var(--hairline);
+    color:var(--ink-dim);
+    padding:7px 14px;
+    cursor:pointer;
+    border-radius:var(--radius);
+  }
+  .filter-btn:hover{ border-color:var(--amber-dim); color:var(--ink); }
+  .filter-btn.active{ background:var(--amber); border-color:var(--amber); color:#241a03; font-weight:700; }
+  .filter-btn:focus-visible, .flight summary:focus-visible, .legend a:focus-visible{
+    outline:2px solid var(--amber); outline-offset:2px;
+  }
+
+  /* ---------- LEGEND ---------- */
+  .legend{
+    display:flex; flex-wrap:wrap; gap:16px;
+    font-family:'Space Mono',monospace; font-size:10.5px; color:var(--ink-faint);
+    margin-bottom:6px;
+    text-transform:uppercase; letter-spacing:.05em;
+  }
+  .legend span{ display:inline-flex; align-items:center; gap:6px; }
+  .dot{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+  .dot.rec{ background:var(--green); }
+  .dot.att{ background:var(--alert); }
+  .dot.inf{ background:var(--info); }
+
+  /* ---------- BOARD ROWS ---------- */
+  .board{ margin-top:14px; border-top:1px solid var(--hairline); }
+
+  .flight{ border-bottom:1px solid var(--hairline); opacity:0; transform:translateY(8px); animation:rise .5s ease forwards; }
+  .flight[hidden]{ display:none; }
+  @keyframes rise{ to{ opacity:1; transform:none; } }
+
+  .flight summary{
+    list-style:none;
+    cursor:pointer;
+    padding:16px 4px;
+    display:grid;
+    grid-template-columns:34px 1fr auto auto auto 18px;
+    gap:14px;
+    align-items:center;
+  }
+  .flight summary::-webkit-details-marker{ display:none; }
+
+  .f-num{
+    font-family:'Space Mono',monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+  }
+  .f-name{ min-width:0; }
+  .f-dest{ font-weight:600; font-size:15.5px; }
+  .f-cat{
+    font-family:'Space Mono',monospace;
+    font-size:10px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-top:2px;
+  }
+  .f-data{ text-align:right; font-family:'Space Mono',monospace; font-size:12.5px; color:var(--ink-dim); white-space:nowrap; }
+  .f-data .lbl{ display:block; font-size:8.5px; color:var(--ink-faint); letter-spacing:.06em; }
+  .f-status{
+    font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.05em; text-transform:uppercase;
+    padding:4px 8px; border-radius:2px; white-space:nowrap; text-align:center;
+  }
+  .f-status.rec{ background:rgba(95,211,141,.14); color:var(--green); }
+  .f-status.att{ background:rgba(255,138,92,.14); color:var(--alert); }
+  .f-status.inf{ background:rgba(87,200,214,.14); color:var(--info); }
+  .chev{ color:var(--ink-faint); transition:transform .25s ease; font-size:13px; }
+  .flight[open] .chev{ transform:rotate(90deg); }
+
+  .f-body{ padding:0 4px 22px 48px; }
+  .f-cols{ display:grid; grid-template-columns:1fr 1fr; gap:20px 28px; margin-bottom:16px; }
+  .f-col h4{
+    margin:0 0 8px; font-family:'Space Mono',monospace; font-size:10.5px;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint);
+  }
+  .f-col.pros h4{ color:var(--green); }
+  .f-col.cons h4{ color:var(--alert); }
+  .f-col ul{ margin:0; padding-left:16px; font-size:13.5px; color:var(--ink-dim); }
+  .f-col li{ margin-bottom:5px; }
+
+  .f-note{
+    font-size:13.5px; color:var(--ink-dim); border-left:2px solid var(--amber-dim);
+    padding:4px 0 4px 12px; margin-bottom:4px;
+  }
+  .f-note b{ color:var(--ink); font-weight:600; }
+
+  /* ---------- FOOTER ---------- */
+  .foot{
+    margin:44px 0 60px;
+    padding-top:18px;
+    border-top:1px solid var(--hairline);
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    color:var(--ink-faint);
+    line-height:1.7;
+  }
+
+  /* ---------- MOBILE ---------- */
+  @media (max-width:640px){
+    .daystrip{ grid-template-columns:repeat(9,minmax(28px,1fr)); gap:3px; }
+    .day .num{ font-size:13px; }
+    .day .dow{ font-size:7.5px; }
+    .day .tag{ font-size:6px; }
+    .flight summary{
+      grid-template-columns:1fr auto;
+      grid-template-areas: "num status" "name status" "data data";
+      row-gap:6px;
+    }
+    .f-num{ grid-area:num; }
+    .f-name{ grid-area:name; }
+    .f-status{ grid-area:status; align-self:start; }
+    .f-data{ grid-area:data; text-align:left; display:flex; gap:16px; }
+    .chev{ display:none; }
+    .f-cols{ grid-template-columns:1fr; }
+    .f-body{ padding-left:4px; }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .flight{ animation:none; opacity:1; transform:none; }
+    .flap-char{ animation:none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="board-case">
+    <div class="board-topline mono">
+      <span>✈ Tablero de salidas</span>
+      <span id="clock-stamp">Buenos Aires → ?</span>
+    </div>
+
+    <h1 class="hero-title mono" id="hero-title" aria-label="MARZO 2027"></h1>
+
+    <p class="hero-sub">
+      <b>Sáb 20 → Dom 28 de marzo, 2027</b> · 9 días corridos · con <b>2 días de licencia</b> (lun 22 + mar 23)
+    </p>
+
+    <div class="daystrip" aria-hidden="false">
+      <div class="day"><span class="dow">Sáb</span><span class="num">20</span><span class="tag">Finde</span></div>
+      <div class="day"><span class="dow">Dom</span><span class="num">21</span><span class="tag">Finde</span></div>
+      <div class="day on"><span class="dow">Lun</span><span class="num">22</span><span class="tag">Licencia</span></div>
+      <div class="day on"><span class="dow">Mar</span><span class="num">23</span><span class="tag">Licencia</span></div>
+      <div class="day on"><span class="dow">Mié</span><span class="num">24</span><span class="tag">Feriado</span></div>
+      <div class="day on"><span class="dow">Jue</span><span class="num">25</span><span class="tag">No lab.</span></div>
+      <div class="day on"><span class="dow">Vie</span><span class="num">26</span><span class="tag">Feriado</span></div>
+      <div class="day"><span class="dow">Sáb</span><span class="num">27</span><span class="tag">Finde</span></div>
+      <div class="day"><span class="dow">Dom</span><span class="num">28</span><span class="tag">Finde</span></div>
+    </div>
+
+    <div class="board-alert">
+      <span class="ico">⚠</span>
+      <span><b>Semana Santa 2027 cae del 21 al 28/3</b>, casi toda la ventana del viaje. Sube precios y ocupación en los destinos católicos (Colombia, México, Perú, Costa Rica, Rep. Dominicana) — conviene comprar con mucha anticipación. El detalle de cada caso está abajo, fila por fila.</span>
+    </div>
+  </div>
+
+  <div class="legend">
+    <span><span class="dot rec"></span>Recomendado</span>
+    <span><span class="dot att"></span>Atención (Semana Santa / alta demanda)</span>
+    <span><span class="dot inf"></span>A confirmar (ruta nueva)</span>
+  </div>
+
+  <div class="filters" role="group" aria-label="Filtrar por categoría">
+    <button class="filter-btn active" data-filter="all">Todos · 11</button>
+    <button class="filter-btn" data-filter="caribe">Caribe · 3</button>
+    <button class="filter-btn" data-filter="ciudad">Ciudad · 1</button>
+    <button class="filter-btn" data-filter="naturaleza">Naturaleza · 2</button>
+    <button class="filter-btn" data-filter="domestico">Doméstico · 5</button>
+  </div>
+
+  <div class="board" id="board">
+
+    <details class="flight" data-cat="caribe" style="animation-delay:.02s">
+      <summary>
+        <span class="f-num mono">01</span>
+        <span class="f-name">
+          <span class="f-dest">Cartagena, Colombia</span>
+          <span class="f-cat">Caribe</span>
+        </span>
+        <span class="f-data"><span class="lbl">Vuelo RT</span>14h20</span>
+        <span class="f-data"><span class="lbl">USD/persona</span>700–950</span>
+        <span class="f-status att">Atención</span>
+        <span class="chev">▸</span>
+      </summary>
+      <div class="f-body">
+        <p class="f-note"><b>Directo AEP-CTG desde el 1/1/2027</b> (Aerolíneas Argentinas, 7h10 por tramo, sin escalas) · auto: no hace falta, centro caminable, playas se hacen en excursión · ~8 de 9 días netos en destino.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Centro colonial UNESCO, islas del Rosario</li>
+              <li>Gastronomía caribeña de nivel</li>
+              <li>Vuelo nuevo, directo, sin riesgo de conexión</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>Calor húmedo fuerte todo el día</li>
+              <li>Zonas fuera del centro piden cuidado</li>
+              <li>Semana Santa: procesiones y precios altos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="flight" data-cat="caribe" style="animation-delay:.05s">
+      <summary>
+        <span class="f-num mono">02</span>
+        <span class="f-name">
+          <span class="f-dest">Curazao</span>
+          <span class="f-cat">Caribe</span>
+        </span>
+        <span class="f-data"><span class="lbl">Vuelo RT</span>~15–16h</span>
+        <span class="f-data"><span class="lbl">USD/persona</span>700–1000+</span>
+        <span class="f-status inf">A confirmar</span>
+        <span class="chev">▸</span>
+      </summary>
+      <div class="f-body">
+        <p class="f-note"><b>Ruta directa nueva de Aerolíneas Argentinas, arranca 2/1/2027</b>, solo 2 frecuencias semanales (mié/sáb) — hay que chequear que calcen con el 20-28/3 antes de avanzar · auto: sí, playas y el Parque Shete Boka lo requieren · ~8 días netos.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Fuera del cinturón de huracanes</li>
+              <li>Buceo y snorkel de primer nivel</li>
+              <li>Willemstad, mezcla caribeño-holandesa</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>Ruta sin historial de tarifas ni operación</li>
+              <li>Poca frecuencia, riesgo de que no calce la fecha</li>
+              <li>Transporte público limitado</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="flight" data-cat="caribe" style="animation-delay:.08s">
+      <summary>
+        <span class="f-num mono">03</span>
+        <span class="f-name">
+          <span class="f-dest">Punta Cana, Rep. Dominicana</span>
+          <span class="f-cat">Caribe</span>
+        </span>
+        <span class="f-data"><span class="lbl">Vuelo RT</span>~19h</span>
+        <span class="f-data"><span class="lbl">USD/persona</span>500–900</span>
+        <span class="f-status att">Atención</span>
+        <span class="chev">▸</span>
+      </summary>
+      <div class="f-body">
+        <p class="f-note">Directo o con 1 escala según aerolínea (~9h40 por tramo) · auto: opcional, solo si salen del resort · ~7,5-8 días netos.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Playas caribeñas de las mejores de la región</li>
+              <li>Resorts todo incluido</li>
+              <li>Buena relación calidad-precio fuera de temporada pico</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>Enclave turístico, poco contacto con el país real</li>
+              <li>Calor húmedo constante</li>
+              <li>Spring break de EE.UU. + Semana Santa = máxima demanda del año</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="flight" data-cat="ciudad" style="animation-delay:.11s">
+      <summary>
+        <span class="f-num mono">04</span>
+        <span class="f-name">
+          <span class="f-dest">Ciudad de México</span>
+          <span class="f-cat">Ciudad</span>
+        </span>
+        <span class="f-data"><span class="lbl">Vuelo RT</span>~19h</span>
+        <span class="f-data"><span class="lbl">USD/persona</span>550–900</span>
+        <span class="f-status att">Atención</span>
+        <span class="chev">▸</span>
+      </summary>
+      <div class="f-body">
+        <p class="f-note">Directo (Aeroméxico / Aerolíneas Argentinas, ~9h25-9h35 por tramo) · auto: no, tránsito pesado, mejor Metro/Uber y tours a Teotihuacán-Puebla · ~8 días netos.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Gastronomía de nivel mundial</li>
+              <li>Museos e historia en cada esquina</li>
+              <li>A un salto de Teotihuacán y Puebla</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>Altitud (2.240m) puede pegar los primeros días</li>
+              <li>Contaminación y tráfico</li>
+              <li>Vía Crucis de Iztapalapa el 26/3 satura esa zona</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="flight" data-cat="naturaleza" style="animation-delay:.14s">
+      <summary>
+        <span class="f-num mono">05</span>
+        <span class="f-name">
+          <span class="f-dest">Costa Rica (San José)</span>
+          <span class="f-cat">Naturaleza</span>
+        </span>
+        <span class="f-data"><span class="lbl">Vuelo RT</span>20–22h</span>
+        <span class="f-data"><span class="lbl">USD/persona</span>550–750</span>
+        <span class="f-status att">Atención</span>
+        <span class="chev">▸</span>
+      </summary>
+      <div class="f-body">
+        <p class="f-note">Con 1 escala, generalmente vía Panamá (evitar rutas con 2 escalas, llegan a 22h40) · auto: sí, muy recomendable, fuera del Valle Central el transporte público es limitado · ~7-7,5 días netos.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Biodiversidad excepcional: volcanes, selva, dos océanos</li>
+              <li>Buena infraestructura turística y seguridad</li>
+              <li>Excelente para road trip con auto propio</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>La conexión obligatoria suma horas</li>
+              <li>Distancias internas grandes para solo 9 días</li>
+              <li>Playas (Guanacaste, Jacó) saturadas de turismo local en Semana Santa</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="flight" data-cat="naturaleza" style="animation-delay:.17s">
+      <summary>
+        <span class="f-num mono">06</span>
+        <span class="f-name">
+          <span class="f-dest">Perú — Lima + Cusco / Machu Picchu</span>
+          <span class="f-cat">Naturaleza</span>
+        </span>
+        <span class="f-data"><span class="lbl">Vuelo RT</span>12–13h</span>
+        <span class="f-data"><span class="lbl">USD/persona</span>550–750</span>
+        <span class="f-status rec">Recomendado</span>
+        <span class="chev">▸</span>
+      </summary>
+      <div class="f-body">
+        <p class="f-note">Directo BUE-Lima (~4h30-5h por tramo) + salto corto Lima-Cusco (~1h27) · auto: no, tren a Machu Picchu y tours en el Valle Sagrado · ~8,5 días netos, el mejor ratio tiempo de vuelo/experiencia de la lista.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Machu Picchu y Valle Sagrado, Cusco colonial</li>
+              <li>Vuelo directo y relativamente corto desde BUE</li>
+              <li>Menos turistas y hoteles más baratos que en invierno seco</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>Cola de temporada de lluvias, riesgo de cierres de vía</li>
+              <li>Altitud de Cusco (3.400m) exige aclimatación</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="flight" data-cat="domestico" style="animation-delay:.20s">
+      <summary>
+        <span class="f-num mono">07</span>
+        <span class="f-name">
+          <span class="f-dest">Salta / Jujuy</span>
+          <span class="f-cat">Doméstico</span>
+        </span>
+        <span class="f-data"><span class="lbl">Vuelo RT</span>~4h</span>
+        <span class="f-data"><span class="lbl">USD/persona</span>150–300</span>
+        <span class="f-status rec">Recomendado</span>
+        <span class="chev">▸</span>
+      </summary>
+      <div class="f-body">
+        <p class="f-note">Directo, sin fricción de idioma ni fronteras · auto: sí, muy recomendable, Quebrada de Humahuaca, Cafayate y Salinas Grandes lo piden · ~8,5 días netos.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Paisajes espectaculares, muy fotogénicos</li>
+              <li>Gastronomía regional</li>
+              <li>Logística simple, sin pasaporte ni cambio de moneda</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>Distancias largas por ruta (Cafayate ~3h30 de Salta)</li>
+              <li>Posible neblina o lluvia residual</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="flight" data-cat="domestico" style="animation-delay:.23s">
+      <summary>
+        <span class="f-num mono">08</span>
+        <span class="f-name">
+          <span class="f-dest">Esteros del Iberá, Corrientes</span>
+          <span class="f-cat">Doméstico</span>
+        </span>
+        <span class="f-data"><span class="lbl">Vuelo RT</span>~3h30</span>
+        <span class="f-data"><span class="lbl">USD/persona</span>150–280</span>
+        <span class="f-status rec">Recomendado</span>
+        <span class="chev">▸</span>
+      </summary>
+      <div class="f-body">
+        <p class="f-note">Directo a Posadas o Corrientes + traslado de 45min a 3h hasta Carlos Pellegrini · auto: esencial, y dentro de la reserva se suma lancha/4x4 con guía · ~8,5-9 días netos.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Fauna espectacular: yacarés, carpinchos, aves</li>
+              <li>Naturaleza única en Argentina, casi sin gente</li>
+              <li>Fin de verano: buen nivel de agua para el avistaje</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>Tramos de ripio en el acceso</li>
+              <li>Alojamiento limitado, reservar con antelación</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="flight" data-cat="domestico" style="animation-delay:.26s">
+      <summary>
+        <span class="f-num mono">09</span>
+        <span class="f-name">
+          <span class="f-dest">Mendoza</span>
+          <span class="f-cat">Doméstico</span>
+        </span>
+        <span class="f-data"><span class="lbl">Vuelo RT</span>~3h30</span>
+        <span class="f-data"><span class="lbl">USD/persona</span>150–300</span>
+        <span class="f-status att">Atención</span>
+        <span class="chev">▸</span>
+      </summary>
+      <div class="f-body">
+        <p class="f-note">Directo · auto: recomendable, las bodegas de Luján de Cuyo y Valle de Uco no tienen buen transporte público · ~9 días netos, el destino con menos tiempo perdido en tránsito.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Mes de cosecha: bodegas y gastronomía de primer nivel</li>
+              <li>Cerca de la Cordillera</li>
+              <li>Casi todo el viaje se queda en destino</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>Calor diurno todavía alto</li>
+              <li>Alta demanda de vuelos y hoteles por el feriado largo</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="flight" data-cat="domestico" style="animation-delay:.29s">
+      <summary>
+        <span class="f-num mono">10</span>
+        <span class="f-name">
+          <span class="f-dest">Bariloche / Patagonia</span>
+          <span class="f-cat">Doméstico</span>
+        </span>
+        <span class="f-data"><span class="lbl">Vuelo RT</span>~4h30</span>
+        <span class="f-data"><span class="lbl">USD/persona</span>150–300</span>
+        <span class="f-status att">Atención</span>
+        <span class="chev">▸</span>
+      </summary>
+      <div class="f-body">
+        <p class="f-note">Directo · auto: muy recomendable, el Circuito Chico y la Ruta 40 se disfrutan mucho mejor manejando · ~8,5-9 días netos.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Paisajes lacustres y de montaña</li>
+              <li>Chocolate y cervezas artesanales</li>
+              <li>Arranque de otoño, sin las multitudes del verano</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>Los colores fuertes de otoño llegan recién en abril</li>
+              <li>Noches ya frescas</li>
+              <li>Alta demanda por el feriado largo argentino</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <details class="flight" data-cat="domestico" style="animation-delay:.32s">
+      <summary>
+        <span class="f-num mono">11</span>
+        <span class="f-name">
+          <span class="f-dest">Uruguay — Punta del Este / Colonia</span>
+          <span class="f-cat">Doméstico</span>
+        </span>
+        <span class="f-data"><span class="lbl">Vuelo RT</span>~1-5h</span>
+        <span class="f-data"><span class="lbl">USD/persona</span>200–280*</span>
+        <span class="f-status att">Atención</span>
+        <span class="chev">▸</span>
+      </summary>
+      <div class="f-body">
+        <p class="f-note">Vuelo directo muy corto si hay frecuencia, o ferry + bus vía Montevideo (~5h15) · auto: opcional, útil en Colonia o para moverse por la costa · ~9 días netos. *estimado en base a ferry ida y vuelta.</p>
+        <div class="f-cols">
+          <div class="f-col pros">
+            <h4>A favor</h4>
+            <ul>
+              <li>Cercanía y comodidad, se llega en el día</li>
+              <li>Combina con Colonia del Sacramento (UNESCO)</li>
+              <li>Buena gastronomía y playas</li>
+            </ul>
+          </div>
+          <div class="f-col cons">
+            <h4>En contra</h4>
+            <ul>
+              <li>Fin de marzo es post-temporada: locales cierran justo después del 28/3</li>
+              <li>Clima más fresco</li>
+              <li>Frecuencias de ferry/vuelo reducidas fuera de temporada alta</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </details>
+
+  </div>
+
+  <div class="foot mono">
+    <p>Todos los costos son estimaciones amplias por persona, ida y vuelta, en base a tarifas de referencia relevadas en 2025-2026 (Kayak, Google Flights, Skyscanner, Despegar). Marzo 2027 todavía no tiene carga de tarifas real — comprar con 40-60 días de anticipación suele dar el mejor precio, y Semana Santa presiona todo al alza.</p>
+    <p>Documento vivo — se va a ir afinando a medida que aparezcan más datos.</p>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var title = document.getElementById('hero-title');
+  var text = 'MARZO 2027';
+  var glyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+  text.split('').forEach(function(ch, i){
+    var span = document.createElement('span');
+    span.className = 'flap-char' + (ch === ' ' ? ' space' : '');
+    span.textContent = reduced ? ch : glyphs[Math.floor(Math.random()*glyphs.length)];
+    title.appendChild(span);
+
+    if(!reduced){
+      var ticks = 8 + Math.floor(Math.random()*6);
+      var delay = i * 55;
+      var count = 0;
+      setTimeout(function step(){
+        if(ch === ' '){ span.textContent = ' '; return; }
+        if(count < ticks){
+          span.textContent = glyphs[Math.floor(Math.random()*glyphs.length)];
+          count++;
+          setTimeout(step, 40 + count*4);
+        } else {
+          span.textContent = ch;
+        }
+      }, delay);
+    }
+  });
+
+  var stampEl = document.getElementById('clock-stamp');
+  stampEl.textContent = 'Marzo 2027 · 11 destinos';
+
+  var buttons = document.querySelectorAll('.filter-btn');
+  var flights = document.querySelectorAll('.flight');
+  buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      buttons.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      var f = btn.dataset.filter;
+      flights.forEach(function(fl){
+        var show = (f === 'all' || fl.dataset.cat === f);
+        fl.hidden = !show;
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
